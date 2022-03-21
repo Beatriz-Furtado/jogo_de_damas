@@ -18,15 +18,27 @@ def movi_obrigatorio(m, t):
                     obrig = capturas(m, i, j)
                     if obrig == 1:
                         casas.append([i+1, j+1])
+                elif m[i][j] == dama_vermelha:
+                    SE, SD, IE, ID = map(list, movi_possi_dama(m, i, j))
+                    if len(SE) > 0 and m[SE[0][0]][SE[0][1]] != quad_preto or len(SD) > 0 and m[SD[0][0]][SD[0][1]] != quad_preto:
+                        casas.append([i+1, j+1])
+                    elif len(IE) > 0 and m[IE[0][0]][IE[0][1]] != quad_preto or len(ID) > 0 and m[ID[0][0]][ID[0][1]] != quad_preto:
+                        casas.append([i+1, j+1])
 
             else:
                 if m[i][j] == pino_amarelo:
                     obrig = capturas(m, i, j)
                     if obrig == 1:
                         casas.append([i+1, j+1])
+                elif m[i][j] == dama_amarela:
+                    SE, SD, IE, ID = map(list, movi_possi_dama(m, i, j))
+                    if len(SE) > 0 and m[SE[0][0]][SE[0][1]] != quad_preto or len(SD) > 0 and m[SD[0][0]][SD[0][1]] != quad_preto:
+                        casas.append([i + 1, j + 1])
+                    elif len(IE) > 0 and m[IE[0][0]][IE[0][1]] != quad_preto or len(ID) > 0 and m[ID[0][0]][ID[0][1]] != quad_preto:
+                        casas.append([i + 1, j + 1])
 
     if len(casas) > 0:
-        print('Movimento obrigatório de captura, casa(s) a ser(em) escolhida(s):')
+        print('Movimento obrigatório de captura, casa(s) que pode(em) capturar:')
         for i in range(len(casas)):
             for j in range(len(casas[i])):
                 if j == 0:
@@ -39,17 +51,26 @@ def movi_obrigatorio(m, t):
 
 
 def movi_possiveis(m, x, y):
-    obrig = capturas(m, x, y)
-    if obrig == 1:
-        return 2
-        #movi_captura(m, x, y)
-    elif m[x][y] == pino_vermelho and (m[x-1][y-1] == quad_preto or m[x-1][y+1] == quad_preto):
-        return 1
-        #movi_simples(m, x, y)
-    elif m[x][y] == pino_amarelo and (m[x+1][y-1] == quad_preto or m[x+1][y+1] == quad_preto):
-        return 1
-    else:
-        return 0
+    if m[x][y] == pino_vermelho or m[x][y] == pino_amarelo:
+        obrig = capturas(m, x, y)
+        if obrig == 1:
+            return 2
+        elif m[x][y] == pino_vermelho and (m[x-1][y-1] == quad_preto or m[x-1][y+1] == quad_preto):
+            return 1
+        elif m[x][y] == pino_amarelo and (m[x+1][y-1] == quad_preto or m[x+1][y+1] == quad_preto):
+            return 1
+        else:
+            return 0
+    elif m[x][y] == dama_vermelha or m[x][y] == dama_amarela:
+        SE, SD, IE, ID = map(list, movi_possi_dama(m, x, y))
+        if len(SE) == 0 and len(SD) == 0 and len(IE) == 0 and len(ID) == 0:
+            return 0
+        if len(SE) > 0 and m[SE[0][0]][SE[0][1]] != quad_preto or len(SD) > 0 and m[SD[0][0]][SD[0][1]] != quad_preto:
+            return 4
+        elif len(IE) > 0 and m[IE[0][0]][IE[0][1]] != quad_preto or len(ID) > 0 and m[ID[0][0]][ID[0][1]] != quad_preto:
+            return 4
+        else:
+            return 3
 
 
 def movi_simples(m, x, y):
@@ -76,6 +97,7 @@ def movi_simples(m, x, y):
 
     m[l][c] = m[x][y]
     m[x][y] = quad_preto
+    promocao(m, l, c)
     return m
 
 
@@ -116,27 +138,152 @@ def movi_captura(m, x, y):
         print('Captura obrigatória de mais uma peça, informe o novo movimento.')
         movi_captura(m, l, c)
     else:
+        promocao(m, l, c)
         return m
 
 
 def capturas(m, x, y):
-    opositora = ''
+    opositora1 = ''
+    opositora2 = ''
     if m[x][y] == pino_vermelho:
-        opositora = pino_amarelo
+        opositora1 = pino_amarelo
+        opositora2 = dama_amarela
     elif m[x][y] == pino_amarelo:
-        opositora = pino_vermelho
+        opositora1 = pino_vermelho
+        opositora2 = dama_vermelha
 
-    if y > 1 and x > 1 and (m[x - 1][y - 1] == opositora and m[x - 2][y - 2] == quad_preto):
+    if y > 1 and x > 1 and ((m[x-1][y-1] == opositora1 or m[x-1][y-1] == opositora2) and m[x-2][y-2] == quad_preto):
         return 1
-    if y > 1 and x < 6 and (m[x + 1][y - 1] == opositora and m[x + 2][y - 2] == quad_preto):
+    if y > 1 and x < 6 and ((m[x+1][y-1] == opositora1 or m[x+1][y-1] == opositora2) and m[x+2][y-2] == quad_preto):
         return 1
-    if y < 6 and x > 1 and (m[x - 1][y + 1] == opositora and m[x - 2][y + 2] == quad_preto):
+    if y < 6 and x > 1 and ((m[x-1][y+1] == opositora1 or m[x-1][y+1] == opositora2) and m[x-2][y+2] == quad_preto):
         return 1
-    if y < 6 and x < 6 and (m[x + 1][y + 1] == opositora and m[x + 2][y + 2] == quad_preto):
+    if y < 6 and x < 6 and ((m[x+1][y+1] == opositora1 or m[x+1][y+1] == opositora2) and m[x+2][y+2] == quad_preto):
         return 1
     else:
         return 0
 
 
+def promocao(m, x, y):
+    if m[x][y] == pino_vermelho and x == 0:
+        m[x][y] = dama_vermelha
+    elif m[x][y] == pino_amarelo and x == 7:
+        m[x][y] = dama_amarela
+
+    return m
 
 
+def diagonal_livre(m, x, y, v1, v2, mp, op):
+    while True:
+        x = x + (v1)
+        y = y + (v2)
+        if x < 0 or x > 7 or y < 0 or y > 7:
+            break
+        if 0 < x < 7 and 0 < y < 7:
+            if op == 'A' and (m[x][y] == pino_amarelo or m[x][y] == dama_amarela) and m[x+(v1)][y+(v2)] == quad_preto:
+                mp = captura_dama(m, x, y, v1, v2, op)
+                break
+            elif op == 'V' and (m[x][y] == pino_vermelho or m[x][y] == dama_vermelha) and m[x+(v1)][y+(v2)] == quad_preto:
+                mp = captura_dama(m, x, y, v1, v2, op)
+                break
+        if m[x][y] != quad_preto:
+            break
+        mp.append([x, y])
+
+    return mp
+
+
+def movi_possi_dama(m, x, y):
+    opositora = ''
+    if m[x][y] == pino_vermelho or m[x][y] == dama_vermelha:
+        opositora = 'A'
+    elif m[x][y] == pino_amarelo or m[x][y] == dama_amarela:
+        opositora = 'V'
+    mp = []
+
+    SE = diagonal_livre(m, x, y, -1, -1, mp, opositora)
+    mp = []
+    SD = diagonal_livre(m, x, y, -1, +1, mp, opositora)
+    mp = []
+    IE = diagonal_livre(m, x, y, +1, -1, mp, opositora)
+    mp = []
+    ID = diagonal_livre(m, x, y, +1, +1, mp, opositora)
+
+    return [SE, SD, IE, ID]
+
+
+def movi_dama_simples(m, x, y):
+    SE, SD, IE, ID = map(list, movi_possi_dama(m, x, y))
+    while True:
+        l, c = map(int, input('Escolha o movimento(l c): ').split())
+        l = l-1
+        c = c-1
+        mov = [l, c]
+        if l == tam or c == tam or l == -1 or c == -1:
+            print('Movimento inválido, fora do tabuleiro')
+        elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho or m[l][c] == dama_vermelha or m[l][c] == dama_amarela:
+            print('Movimento inválido, casa ocupada.')
+        elif mov in SE or mov in SD or mov in IE or mov in ID:
+            break
+        else:
+            print('Movimento inválido, essa peça só pode andar na diagonal, para frente e para trás.')
+
+    m[l][c] = m[x][y]
+    m[x][y] = quad_preto
+    return m
+
+
+def captura_dama(m, x, y, v1, v2, op):
+    mp = []
+    mp.append([x, y])
+    while True:
+        x = x + (v1)
+        y = y + (v2)
+        if x < 0 or x > 7 or y < 0 or y > 7 or m[x][y] != quad_preto:
+            break
+
+        mp.append([x, y])
+
+    return mp
+
+
+def movi_dama_captura(m, x, y):
+    SE, SD, IE, ID = map(list, movi_possi_dama(m, x, y))
+    peca_comida = []
+    while True:
+        l, c = map(int, input('Escolha o movimento(l c): ').split())
+        l = l-1
+        c = c-1
+        mov = [l, c]
+        if l == tam or c == tam or l == -1 or c == -1:
+            print('Movimento inválido, fora do tabuleiro')
+        elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho or m[l][c] == dama_vermelha or m[l][c] == dama_amarela:
+            print('Movimento inválido, casa ocupada.')
+        elif mov in SE and m[SE[0][0]][SE[0][1]] != quad_preto:
+            peca_comida = SE[0]
+            break
+        elif mov in SD and m[SD[0][0]][SD[0][1]] != quad_preto:
+            peca_comida = SD[0]
+            break
+        elif mov in IE and m[IE[0][0]][IE[0][1]] != quad_preto:
+            peca_comida = IE[0]
+            break
+        elif mov in ID and m[ID[0][0]][ID[0][1]] != quad_preto:
+            peca_comida = ID[0]
+            break
+        else:
+            print('Captura obrigatória de uma peça!')
+
+
+    m[l][c] = m[x][y]
+    m[x][y] = quad_preto
+    l_c, c_c = map(int, peca_comida)
+    m[l_c][c_c] = quad_preto
+    SE, SD, IE, ID = map(list, movi_possi_dama(m, l, c))
+    if (len(SE) > 0 and m[SE[0][0]][SE[0][1]] != quad_preto) or (len(SD) > 0 and m[SD[0][0]][SD[0][1]] != quad_preto):
+        print('Captura obrigatória de mais uma peça, informe o novo movimento.')
+        movi_dama_captura(m, l, c)
+    if (len(IE) > 0 and m[IE[0][0]][IE[0][1]] != quad_preto) or (len(ID) > 0 and m[ID[0][0]][ID[0][1]] != quad_preto):
+        print('Captura obrigatória de mais uma peça, informe o novo movimento.')
+        movi_dama_captura(m, l, c)
+    return m
