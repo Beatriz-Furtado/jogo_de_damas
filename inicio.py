@@ -270,36 +270,40 @@ while True:
     (2) começar jogo
     (3) continuar com o jogo salvo
     '''
-    opcoes = int(input('Deseja ver as regras, iniciar um novo jogo ou continuar jogando? Regras(1) Iniciar(2) Continuar(3) '))
-    if opcoes == 3:
-        a = open('jogosalvo.txt', 'r')
-        t, jog1, jog2, cont = map(str, a.readline().split())
-        m = []
-        b = open('tabuleirosalvo.txt', 'r')
-        for i in range(tam):
-            for j in range(tam):
-                linha = b.readline()
-                linha = list(linha)
-                l = []
-                v = 0
-                for h in linha:
-                    if v < 8:
-                        l.append(h)
-                    else:
-                        break
-                    v += 1
+    try:
+        opcoes = int(input('Deseja ver as regras, iniciar um novo jogo ou continuar jogando? Regras(1) Iniciar(2) Continuar(3) '))
+    except ValueError:
+        print('Digite apenas números.')
+    else:
+        if opcoes == 3:
+            a = open('jogosalvo.txt', 'r')
+            t, jog1, jog2, cont = map(str, a.readline().split())
+            m = []
+            b = open('tabuleirosalvo.txt', 'r')
+            for i in range(tam):
+                for j in range(tam):
+                    linha = b.readline()
+                    linha = list(linha)
+                    l = []
+                    v = 0
+                    for h in linha:
+                        if v < 8:
+                            l.append(h)
+                        else:
+                            break
+                        v += 1
 
-                m.append(l)
-                break
+                    m.append(l)
+                    break
 
-        escreve_tabuleiro(m, tam)
-        jogar(m, t, jog1, jog2, int(cont))
+            escreve_tabuleiro(m, tam)
+            jogar(m, t, jog1, jog2, int(cont))
 
-    elif opcoes == 2:
-        break
-    elif opcoes == 1:
-        print(regras)
-        print()
+        elif opcoes == 2:
+            break
+        elif opcoes == 1:
+            print(regras)
+            print()
 
 print('O jogador 1 fica com a cor vermelha e o jogador 2 fica com a cor amarela.')
 jog1 = input(f'Nome do jogador 1(cor = \033[1;{c1}mvermelho\033[m): ')#nome do jogador 1
