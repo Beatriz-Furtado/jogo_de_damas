@@ -1,20 +1,33 @@
+"""
+Módulo que faz a interface com o usuário
+"""
+
+
 from jog import *
 from constantes import *
 from arquivo import *
 
-def escolha_pino(m, t, j1, j2):
-    '''Onde o usuário irá escolher o pino para
-    fazer a jogada, e vai verificar se o pino
-    é válido ou não, e ver se há alguma jogada
-    possível.'''
+
+def jogar(m, t, j1, j2, cont):
+    '''
+    Começar a jogada.
+    - Recebe pino escolhido
+    - verifica se é válido
+    - Encaminha para o movimento possível
+    :param m: Matriz que representa o tabuleiro
+    :param t: O turno
+    :param j1: Jogador 1
+    :param j2: Jogador 2
+    :param cont: Contador de lances
+    '''
     print(f'É a sua vez {t}!', end='')
     print()
     vez = ''
     val = 0
     if t == jog1:
-        vez = pino_vermelho
+        vez = 'V'
     else:
-        vez = pino_amarelo
+        vez = 'A'
     casa = movi_obrigatorio(m, vez)
 
     while True:
@@ -24,7 +37,9 @@ def escolha_pino(m, t, j1, j2):
             opcao = input('Deseja sair?(S/N) ')
             opcao = opcao.upper()
             if opcao == 'S' or opcao == 'SIM':
-                sair(m, t, j1, j2)
+                sair(m, t, j1, j2, cont)
+            else:
+                print('Digite apenas números para fazer a jogada, lembrando de dar um espaço entre eles.')
         else:
             l = l-1
             c = c-1
@@ -58,21 +73,42 @@ def escolha_pino(m, t, j1, j2):
                     break
 
     if val == 1:
-        movi_simples(m, l, c)
+        movi_peao_simples(m, l, c)
     elif val == 2:
-        movi_captura(m, l, c)
+        movi_peao_captura(m, l, c)
     elif val == 3:
         movi_dama_simples(m, l, c)
     elif val == 4:
         movi_dama_captura(m, l, c)
 
-    escreve_matriz(m, tam)
+    escreve_tabuleiro(m, tam)
+    cont = cont_lances(val, cont)
     turno = troca_turno(t, j1, j2)
-    escolha_pino(m, turno, j1, j2)
+    jogar(m, turno, j1, j2, cont)
 
 
-def escreve_matriz(m, n):
-    '''Escreve na tale o tabuleiro ao longo do jogo.'''
+def cont_lances(val, cont):
+    '''
+    Conta os lances para a condição de empate.
+    :param val: Valor que indica o movimento realizado
+    :param cont: O valor do contador
+    :return: Valor do contador
+    '''
+    if val == 3:
+        cont += 1
+    elif val != 3:
+        cont = 0
+    if cont == 20:
+        final_jogo('E')
+    return cont
+
+
+def escreve_tabuleiro(m, n):
+    '''
+    Escreve na tale o tabuleiro ao longo do jogo.
+    :param m: Matriz que representa o tabuleiro
+    :param n: O tamanho da matriz
+    '''
     coluna = list(range(1, n+1))
     for i in coluna:
         if i == 1:
@@ -98,69 +134,143 @@ def escreve_matriz(m, n):
                 print('\033[1;33;40m * \033[m', end='')
         print()
     print()
+    verifica_vencedor(m)
 
 
-def matriz_inicial(n, p, c1, c2):
-    '''Cria a primeira matriz do jogo.'''
-    matriz_i = []
-    for i in range(n):
-        matriz_i.append([])
-        for j in range(n):
-            if (j % 2 != 0 and i % 2 != 0) or (j % 2 == 0 and i % 2 == 0) or (j == i):
-                matriz_i[i].append(quad_branco)
-            else:
-                if i == 3 or i == 4:
-                    matriz_i[i].append(quad_preto)
-                elif i < 3:
-                    matriz_i[i].append(pino_amarelo)
-                elif i > 4:
-                    matriz_i[i].append(pino_vermelho)
+def verifica_vencedor(m):
+    '''
+    Verifica se há algum vencedor a cada jogada.
+    :param m: Matriz que representa o tabuleiro atual
+    '''
+    dv = 0
+    pv = 0
+    da = 0
+    pa = 0
+    possi_ver = 0
+    possi_ama = 0
+    v = ''
+    for i in range(len(m)):
+        dv += m[i].count(dama_vermelha)
+        pv += m[i].count(pino_vermelho)
+        da += m[i].count(dama_amarela)
+        pa += m[i].count(pino_amarelo)
 
-    return matriz_i
+    if (dv > 0 or pv > 0) and da == 0 and pa == 0:
+        v = 'V'
+    elif dv == 0 and pv == 0 and (da > 0 or pa > 0):
+        v = 'A'
+    elif dv == 1 and pv == 0 and da == 1 and pa == 0:
+        v = 'E'
+    elif (dv > 0 or pv > 0) and (da > 0 or pa > 0):
+        for i in range(tam):
+            for j in range(tam):
+                if m[i][j] == dama_vermelha or m[i][j] == pino_vermelho:
+                    possi = movi_possiveis(m, i, j)
+                    if possi != 0:
+                        possi_ver += 1
+                elif m[i][j] == dama_amarela or m[i][j] == pino_amarelo:
+                    possi = movi_possiveis(m, i, j)
+                    if possi != 0:
+                        possi_ama += 1
+
+        if possi_ama == 0:
+            v = 'V'
+        elif possi_ver == 0:
+            v = 'A'
+    if v != '':
+        final_jogo(v)
+    return
 
 
-def sair(m, t, j1, j2):
-    '''Sair do jogo, pode também salvar
-    o jogo para jogar depois.'''
+def sair(m, t, j1, j2, cont):
+    '''
+    Interrompe o jogo.
+    :param m: Matriz que representa o tabuleiro atual
+    :param t: O turno do jogo
+    :param j1: Jogador 1
+    :param j2: Jogador 2
+    :param cont: O valor do contador de lances
+    '''
     opcao = input('Deseja salvar o jogo, para começar depois de onde parou?(S/N) ')
     opcao = opcao.upper()
     if opcao == 'S' or opcao == 'SIM':
-        arq_texto = 'jogosalvo.txt'
-        arq_tabuleiro = 'tabuleirosalvo.txt'
-        if arquivoexiste(arq_texto):
-            a = open('jogosalvo.txt', 'w')
-            a.close()
-        if arquivoexiste(arq_tabuleiro):
-            a = open('tabuleirosalvo.txt', 'w')
-            a.close()
-
-        criarArquivo(arq_texto)
-        adicionar_texto(arq_texto, t, j1, j2)
-        criarArquivo(arq_tabuleiro)
-        adicionar_tabuleiro(arq_tabuleiro, m)
+        salvar_jogo(m, t, j1, j2, cont)
 
     print('Volte sempre!')
     exit()
 
 
-def imprime_inicio(n):
-    '''Irá imprimir a chamada do jogo, o título.'''
+def salvar_jogo(m, t, j1, j2, cont):
+    '''
+    Salva o jogo para jogar depois.
+    :param m: Matriz que representa o tabuleiro atual
+    :param t: O turno do jogo
+    :param j1: Jogador 1
+    :param j2: Jogador 2
+    :param cont: O valor do contador de lances
+    '''
+    arq_texto = 'jogosalvo.txt'
+    arq_tabuleiro = 'tabuleirosalvo.txt'
+    if arquivo_existe(arq_texto):
+        a = open('jogosalvo.txt', 'w')
+        a.close()
+    if arquivo_existe(arq_tabuleiro):
+        a = open('tabuleirosalvo.txt', 'w')
+        a.close()
+
+    criar_arquivo(arq_texto)
+    adicionar_texto(arq_texto, t, j1, j2, cont)
+    criar_arquivo(arq_tabuleiro)
+    adicionar_tabuleiro(arq_tabuleiro, m)
+
+
+def final_jogo(v):
+    '''
+    Informa o status final e encerra o jogo.
+    - Ganhador
+    - Empate
+    :param v: Variavél que indica o status do jogo
+    '''
+    vencedor = ''
+    txt = ''
+    if v == 'V':
+        vencedor = jog1.upper()
+        txt = f'{vencedor} VENCEU!'
+    elif v == 'A':
+        vencedor = jog2.upper()
+        txt = f'{vencedor} VENCEU!'
+    elif v == 'E':
+        txt = 'EMPATE'
+
+    imprime_informacoes(30, txt)
+    exit()
+
+
+def imprime_informacoes(n, txt):
+    '''
+    Irá imprimir informações importantes
+    personalizadas.
+    :param n: Tamanho do print
+    :param txt: Texto a ser escrito
+    '''
     print('=' * n)
-    print('\033[1;31m  JOGO DE DAMAS  \033[m')
+    print(f'\033[1;36m{txt.center(n)}\033[m')
     print('=' * n)
     print()
 
-
-imprime_inicio(17)
+#Inicia o jogo
+imprime_informacoes(30, inicio)
 while True:
-    '''O menu do jogo, onde irá ter as regras, 
-    opção de começar o jogo ou continuar a jogar'''
+    '''
+    O menu do jogo.
+    (1) Regras
+    (2) começar jogo
+    (3) continuar com o jogo salvo
+    '''
     opcoes = int(input('Deseja ver as regras, iniciar um novo jogo ou continuar jogando? Regras(1) Iniciar(2) Continuar(3) '))
     if opcoes == 3:
         a = open('jogosalvo.txt', 'r')
-        t = a.readline()
-        jog1 = a.readline()
-        jog2 = a.readline()
+        t, jog1, jog2, cont = map(str, a.readline().split())
         m = []
         b = open('tabuleirosalvo.txt', 'r')
         for i in range(tam):
@@ -168,30 +278,31 @@ while True:
                 linha = b.readline()
                 linha = list(linha)
                 l = []
-                cont = 0
+                v = 0
                 for h in linha:
-                    if cont < 8:
+                    if v < 8:
                         l.append(h)
                     else:
                         break
-                    cont += 1
+                    v += 1
 
                 m.append(l)
                 break
 
-        escreve_matriz(m, tam)
-        escolha_pino(m, t, jog1, jog2)
+        escreve_tabuleiro(m, tam)
+        jogar(m, t, jog1, jog2, cont)
 
-    if opcoes == 2:
+    elif opcoes == 2:
         break
-    print('Regras...')
+    elif opcoes == 1:
+        print(regras)
+        print()
 
 jog1 = input(f'Nome do jogador 1(cor = \033[1;{c1}mvermelho\033[m): ')#nome do jogador 1
 jog2 = input(f'Nome do jogador 2(cor = \033[1;{c2}mamarelo\033[m): ')#nome do jogador 2
 
 turno = jog1
-matriz = matriz_inicial(tam, pino, c1, c2)
-escreve_matriz(matriz, tam)
-escolha_pino(matriz, turno, jog1, jog2)
-
-
+matriz = matriz_inicial(tam)
+escreve_tabuleiro(matriz, tam)
+cont = 0
+jogar(matriz, turno, jog1, jog2, cont)

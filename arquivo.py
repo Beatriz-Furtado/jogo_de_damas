@@ -1,4 +1,18 @@
-def arquivoexiste(nome):
+"""
+Esse módulo manipula arquivos de texto.
+A interface deve usar essas funções para:
+- Verificar se um arquivo existe
+- Criar um arquivo
+- Adicionar informações importantes nos arquivos
+"""
+
+
+def arquivo_existe(nome):
+    '''
+    Verifica se o arquivo já existe.
+    :param nome: Nome do arquivo
+    :return: True se o arquivo existe ou False se não
+    '''
     try:
         a = open(nome, 'rt')
         a.close()
@@ -8,7 +22,11 @@ def arquivoexiste(nome):
         return True
 
 
-def criarArquivo(nome):
+def criar_arquivo(nome):
+    '''
+    Cria o arquivo caso ele não exista.
+    :param nome: Nome do arquivo
+    '''
     try:
         a = open(nome, 'wt+')
         a.close()
@@ -18,14 +36,25 @@ def criarArquivo(nome):
         print(f'Arquivo {nome} criado com sucesso')
 
 
-def adicionar_texto(arq, t='', j1='', j2=''):
+def adicionar_texto(arq, t, j1, j2, cont):
+    '''
+    Adiciona informações no arquivo de texto.
+    :param arq: O arquivo selecionado
+    :param t: O último turno
+    :param j1: Jogador 1
+    :param j2: Jogador 2
+    :param cont: O contador de lances
+    '''
     try:
         a = open(arq, 'at')
     except:
         print('Houve um erro na arbetura do arquivo!')
     else:
         try:
-            a.write(f'{t}\n{j1}\n{j2}\n')
+            a.write(f'{t} ')
+            a.write(f'{j1} ')
+            a.write(f'{j2} ')
+            a.write(f'{cont}')
         except:
             print('Houve um erro na hora de escrever os dados')
         else:
@@ -34,6 +63,11 @@ def adicionar_texto(arq, t='', j1='', j2=''):
 
 
 def adicionar_tabuleiro(arq, m):
+    '''
+    Adiciona tabuleiro ao arquivo de texto.
+    :param arq: O arquivo selecionado
+    :param m: Matriz para o qual irá se basear o tabuleiro
+    '''
     try:
         b = open(arq, 'at')
     except:
@@ -52,4 +86,3 @@ def adicionar_tabuleiro(arq, m):
         else:
             print('Tabuleiro salvo.')
             b.close()
-
