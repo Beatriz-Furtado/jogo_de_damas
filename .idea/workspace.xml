@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f2ac722-4022-49af-ae6c-552fc7447819" name="Changes" comment="Subindo correções">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inicio.py" beforeDir="false" afterPath="$PROJECT_DIR$/inicio.py" afterDir="false" />
-    </list>
+    <list default="true" id="6f2ac722-4022-49af-ae6c-552fc7447819" name="Changes" comment="Subindo correções" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -214,7 +211,7 @@
       <workItem from="1648354277523" duration="6684000" />
       <workItem from="1648407779013" duration="2234000" />
       <workItem from="1648437216636" duration="10161000" />
-      <workItem from="1648471904673" duration="11978000" />
+      <workItem from="1648471904673" duration="12729000" />
     </task>
     <task id="LOCAL-00001" summary="Subindo promoção da dama, movimentos da dama, função salvar jogo">
       <created>1647906414447</created>
@@ -258,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648480490056</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Subindo correções">
+      <created>1648491831223</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1648491831223</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
