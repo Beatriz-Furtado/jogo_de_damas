@@ -198,7 +198,7 @@ def sair(m, t, j1, j2, cont):
     if opcao == 'S' or opcao == 'SIM':
         salvar_jogo(m, t, j1, j2, cont)
 
-    print('Volte sempre!')
+    imprime_informacoes(30, 'Volte sempre!')
     exit()
 
 
@@ -260,6 +260,7 @@ def imprime_informacoes(n, txt):
     print('=' * n)
     print()
 
+
 #Inicia o jogo
 imprime_informacoes(30, inicio)
 while True:
@@ -292,7 +293,7 @@ while True:
                 break
 
         escreve_tabuleiro(m, tam)
-        jogar(m, t, jog1, jog2, cont)
+        jogar(m, t, jog1, jog2, int(cont))
 
     elif opcoes == 2:
         break
