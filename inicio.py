@@ -161,8 +161,6 @@ def verifica_vencedor(m):
         v = 'V'
     elif dv == 0 and pv == 0 and (da > 0 or pa > 0):
         v = 'A'
-    elif dv == 1 and pv == 0 and da == 1 and pa == 0:
-        v = 'E'
     elif (dv > 0 or pv > 0) and (da > 0 or pa > 0):
         for i in range(tam):
             for j in range(tam):
