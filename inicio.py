@@ -20,7 +20,8 @@ def jogar(m, t, j1, j2, cont):
     :param j2: Jogador 2
     :param cont: Contador de lances
     '''
-    print(f'É a sua vez {t}!', end='')
+    print('\033[1;32mSe desejar sair digite: sair. Antes de fazer a jogada.\033[m')
+    print(f'É a sua vez {t}!')
     print()
     vez = ''
     val = 0
@@ -136,7 +137,6 @@ def escreve_tabuleiro(m, n):
         print()
     print()
     verifica_vencedor(m)
-    print('\033[1;32mSe desejar sair digite: sair. Antes de fazer a jogada.\033[m')
 
 
 def verifica_vencedor(m):

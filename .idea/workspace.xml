@@ -214,7 +214,7 @@
       <workItem from="1648354277523" duration="6684000" />
       <workItem from="1648407779013" duration="2234000" />
       <workItem from="1648437216636" duration="10161000" />
-      <workItem from="1648471904673" duration="5610000" />
+      <workItem from="1648471904673" duration="11978000" />
     </task>
     <task id="LOCAL-00001" summary="Subindo promoção da dama, movimentos da dama, função salvar jogo">
       <created>1647906414447</created>
@@ -251,7 +251,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648477065884</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Subindo correções">
+      <created>1648480490056</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1648480490056</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,7 +284,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/damas$main.coverage" NAME="main Coverage Results" MODIFIED="1645726872438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/damas$inicio.coverage" NAME="inicio Coverage Results" MODIFIED="1648480357786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/damas$inicio.coverage" NAME="inicio Coverage Results" MODIFIED="1648491715931" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/damas$jog__1_.coverage" NAME="jog (1) Coverage Results" MODIFIED="1646664689755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/damas$jog2.coverage" NAME="jog2 Coverage Results" MODIFIED="1645553655706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/damas$constantes.coverage" NAME="constantes Coverage Results" MODIFIED="1645555836701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
