@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f2ac722-4022-49af-ae6c-552fc7447819" name="Changes" comment="Subindo promoção da dama, movimentos da dama, função salvar jogo">
+    <list default="true" id="6f2ac722-4022-49af-ae6c-552fc7447819" name="Changes" comment="Subindo condição de empate e documentação">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arquivo.py" beforeDir="false" afterPath="$PROJECT_DIR$/arquivo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/caso_testes" beforeDir="false" afterPath="$PROJECT_DIR$/caso_testes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constantes.py" beforeDir="false" afterPath="$PROJECT_DIR$/constantes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inicio.py" beforeDir="false" afterPath="$PROJECT_DIR$/inicio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jog.py" beforeDir="false" afterPath="$PROJECT_DIR$/jog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jogosalvo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/jogosalvo.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tabuleirosalvo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tabuleirosalvo.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +215,7 @@
       <workItem from="1648354277523" duration="6684000" />
       <workItem from="1648407779013" duration="2234000" />
       <workItem from="1648437216636" duration="10161000" />
-      <workItem from="1648471904673" duration="299000" />
+      <workItem from="1648471904673" duration="2419000" />
     </task>
     <task id="LOCAL-00001" summary="Subindo promoção da dama, movimentos da dama, função salvar jogo">
       <created>1647906414447</created>
@@ -230,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647906414447</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Subindo condição de empate e documentação">
+      <created>1648472252955</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1648472252955</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,11 +251,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Subindo promoção da dama, movimentos da dama, função salvar jogo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Subindo promoção da dama, movimentos da dama, função salvar jogo" />
+    <MESSAGE value="Subindo condição de empate e documentação" />
+    <option name="LAST_COMMIT_MESSAGE" value="Subindo condição de empate e documentação" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/damas$main.coverage" NAME="main Coverage Results" MODIFIED="1645726872438" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/damas$inicio.coverage" NAME="inicio Coverage Results" MODIFIED="1648447082342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/damas$inicio.coverage" NAME="inicio Coverage Results" MODIFIED="1648474301994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/damas$jog__1_.coverage" NAME="jog (1) Coverage Results" MODIFIED="1646664689755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/damas$jog2.coverage" NAME="jog2 Coverage Results" MODIFIED="1645553655706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/damas$constantes.coverage" NAME="constantes Coverage Results" MODIFIED="1645555836701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

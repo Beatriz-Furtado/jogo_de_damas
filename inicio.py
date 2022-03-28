@@ -109,6 +109,7 @@ def escreve_tabuleiro(m, n):
     :param m: Matriz que representa o tabuleiro
     :param n: O tamanho da matriz
     '''
+    print()
     coluna = list(range(1, n+1))
     for i in coluna:
         if i == 1:
@@ -135,6 +136,7 @@ def escreve_tabuleiro(m, n):
         print()
     print()
     verifica_vencedor(m)
+    print('\033[1;32mSe desejar sair digite: sair. Antes de fazer a jogada.\033[m')
 
 
 def verifica_vencedor(m):
@@ -298,6 +300,7 @@ while True:
         print(regras)
         print()
 
+print('O jogador 1 fica com a cor vermelha e o jogador 2 fica com a cor amarela.')
 jog1 = input(f'Nome do jogador 1(cor = \033[1;{c1}mvermelho\033[m): ')#nome do jogador 1
 jog2 = input(f'Nome do jogador 2(cor = \033[1;{c2}mamarelo\033[m): ')#nome do jogador 2
 

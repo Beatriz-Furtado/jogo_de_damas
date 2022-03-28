@@ -124,25 +124,29 @@ def movi_peao_simples(m, x, y):
     :return: Matriz após realizado o mivimento
     '''
     while True:
-        l, c = map(int, input('Escolha o movimento(l c): ').split())
-        l = l-1
-        c = c-1
-        if l == tam or c == tam or l == -1 or c == -1:
-            print('Movimento inválido, fora do tabuleiro.')
-        elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho:
-            print('Movimento inválido, casa ocupada.')
-        elif m[x][y] == pino_amarelo:
-            if l != x + 1 or (c != y - 1 and c != y + 1):
-                print('Movimento inválido, essa peça só pode andar na diagonal e pra frente.')
-            else:
-                break
-        elif m[x][y] == pino_vermelho:
-            if l != x - 1 or (c != y - 1 and c != y + 1):
-                print('Movimento inválido, essa peça só pode andar na diagonal e pra frente.')
-            else:
-                break
+        try:
+            l, c = map(int, input('Escolha o movimento(l c): ').split())
+        except ValueError:
+            print('Digite apenas números para fazer a jogada, lembrando de dar um espaço entre eles.')
         else:
-            break
+            l = l-1
+            c = c-1
+            if l == tam or c == tam or l == -1 or c == -1:
+                print('Movimento inválido, fora do tabuleiro.')
+            elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho:
+                print('Movimento inválido, casa ocupada.')
+            elif m[x][y] == pino_amarelo:
+                if l != x + 1 or (c != y - 1 and c != y + 1):
+                    print('Movimento inválido, essa peça só pode andar uma casa na diagonal e pra frente.')
+                else:
+                    break
+            elif m[x][y] == pino_vermelho:
+                if l != x - 1 or (c != y - 1 and c != y + 1):
+                    print('Movimento inválido, essa peça só pode andar uma casa na diagonal e pra frente.')
+                else:
+                    break
+            else:
+                break
 
     m[l][c] = m[x][y]
     m[x][y] = quad_preto
@@ -159,18 +163,22 @@ def movi_peao_captura(m, x, y):
     :return: Matriz após realizado o mivimento
     '''
     while True:
-        l, c = map(int, input('Escolha o movimento(l c): ').split())
-        l = l-1
-        c = c-1
-        if (l != x-2 and c != y-2) and (l != x-2 and c != y+2) and (l != x+2 and c != y-2) and (l != x+2 and c != y+2):
-            print('Captura obrigatória!')
-            print('Sempre uma casa a mais na direção da peça a ser capturada.')
-        elif l == tam or c == tam or l == -1 or c == -1:
-            print('Movimento inválido, fora do tabuleiro.')
-        elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho:
-            print('Movimento inválido, casa ocupada.')
+        try:
+            l, c = map(int, input('Escolha o movimento(l c): ').split())
+        except ValueError:
+            print('Digite apenas números para fazer a jogada, lembrando de dar um espaço entre eles.')
         else:
-            break
+            l = l-1
+            c = c-1
+            if (l != x-2 and c != y-2) and (l != x-2 and c != y+2) and (l != x+2 and c != y-2) and (l != x+2 and c != y+2):
+                print('Captura obrigatória!')
+                print('Sempre uma casa a mais na direção da peça a ser capturada.')
+            elif l == tam or c == tam or l == -1 or c == -1:
+                print('Movimento inválido, fora do tabuleiro.')
+            elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho:
+                print('Movimento inválido, casa ocupada.')
+            else:
+                break
 
     peca_comida = []
     if l == x-2 and c == y-2:
@@ -312,18 +320,22 @@ def movi_dama_simples(m, x, y):
     '''
     SE, SD, IE, ID = map(list, movi_possi_dama(m, x, y))
     while True:
-        l, c = map(int, input('Escolha o movimento(l c): ').split())
-        l = l-1
-        c = c-1
-        mov = [l, c]
-        if l == tam or c == tam or l == -1 or c == -1:
-            print('Movimento inválido, fora do tabuleiro.')
-        elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho or m[l][c] == dama_vermelha or m[l][c] == dama_amarela:
-            print('Movimento inválido, casa ocupada.')
-        elif mov in SE or mov in SD or mov in IE or mov in ID:
-            break
+        try:
+            l, c = map(int, input('Escolha o movimento(l c): ').split())
+        except ValueError:
+            print('Digite apenas números para fazer a jogada, lembrando de dar um espaço entre eles.')
         else:
-            print('Movimento inválido, essa peça só pode andar na diagonal, para frente e para trás.')
+            l = l-1
+            c = c-1
+            mov = [l, c]
+            if l == tam or c == tam or l == -1 or c == -1:
+                print('Movimento inválido, fora do tabuleiro.')
+            elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho or m[l][c] == dama_vermelha or m[l][c] == dama_amarela:
+                print('Movimento inválido, casa ocupada.')
+            elif mov in SE or mov in SD or mov in IE or mov in ID:
+                break
+            else:
+                print('Movimento inválido, essa peça só pode andar na diagonal, para frente e para trás.')
 
     m[l][c] = m[x][y]
     m[x][y] = quad_preto
@@ -383,28 +395,32 @@ def movi_dama_captura(m, x, y):
     SE, SD, IE, ID = map(list, movi_possi_dama(m, x, y))
     peca_comida = []
     while True:
-        l, c = map(int, input('Escolha o movimento(l c): ').split())
-        l = l-1
-        c = c-1
-        mov = [l, c]
-        if l == tam or c == tam or l == -1 or c == -1:
-            print('Movimento inválido, fora do tabuleiro.')
-        elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho or m[l][c] == dama_vermelha or m[l][c] == dama_amarela:
-            print('Movimento inválido, casa ocupada.')
-        elif mov in SE and m[SE[0][0]][SE[0][1]] != quad_preto:
-            peca_comida = SE[0]
-            break
-        elif mov in SD and m[SD[0][0]][SD[0][1]] != quad_preto:
-            peca_comida = SD[0]
-            break
-        elif mov in IE and m[IE[0][0]][IE[0][1]] != quad_preto:
-            peca_comida = IE[0]
-            break
-        elif mov in ID and m[ID[0][0]][ID[0][1]] != quad_preto:
-            peca_comida = ID[0]
-            break
+        try:
+            l, c = map(int, input('Escolha o movimento(l c): ').split())
+        except ValueError:
+            print('Digite apenas números para fazer a jogada, lembrando de dar um espaço entre eles.')
         else:
-            print('Captura obrigatória de uma peça!')
+            l = l-1
+            c = c-1
+            mov = [l, c]
+            if l == tam or c == tam or l == -1 or c == -1:
+                print('Movimento inválido, fora do tabuleiro.')
+            elif m[l][c] == pino_amarelo or m[l][c] == pino_vermelho or m[l][c] == dama_vermelha or m[l][c] == dama_amarela:
+                print('Movimento inválido, casa ocupada.')
+            elif mov in SE and m[SE[0][0]][SE[0][1]] != quad_preto:
+                peca_comida = SE[0]
+                break
+            elif mov in SD and m[SD[0][0]][SD[0][1]] != quad_preto:
+                peca_comida = SD[0]
+                break
+            elif mov in IE and m[IE[0][0]][IE[0][1]] != quad_preto:
+                peca_comida = IE[0]
+                break
+            elif mov in ID and m[ID[0][0]][ID[0][1]] != quad_preto:
+                peca_comida = ID[0]
+                break
+            else:
+                print('Captura obrigatória de uma peça!')
 
     m[l][c] = m[x][y]
     m[x][y] = quad_preto
